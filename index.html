@@ -4,8 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- font awesome icons download link-->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+    <!-- top navigation bar-->
+     <header class="navbar">
+        <!-- spotify logo-->
+        <div class="navleft">
+        <img src="logo.png" width="40px" height="40">
+        <div class="brand">Spotify</div>
+        <i class="fa-solid fa-house home"></i>
+        </div>
+        <!--searchbar-->
+        <div class="search">
+            <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+            <input type="text" placeholder="what do you want to play??">
+        </div>
+
+        <!--right side buttons-->
+        <div class="nav-buttons">
+            <i class="fa-regular fa-circle-down fa-2x"></i>
+            <button class="install">Install App</button>
+            <button class="signup">Sign Up</button>
+            <button class="login">Log In</button>
+        </div>
+     </header>
     
+
+    <!-- main layout-->
+     <div class="container">
+        <aside class="sidebar">
+            <h3>Your Library</h3>
+
+            <div class="box">
+                <h4>create your first playlist</h4>
+                <p>let us help you</p>
+                <button>Create Playlist</button>
+            </div>
+            <div class="randomoptions">
+                <h6>Legal</h6>
+                <h6>Safety and Privacy centre</h6>
+                <h6>Privacy Policy</h6>
+                <h6>Cookies</h6>
+                <h6>AboutAds</h6>
+            </div>
+        </aside>
+
+    <!--main content-->
+    <main class="main">
+        <!--trending songs-->
+        <h2>Trending songs</h2>
+
+        <!--songswilll be inserted using js-->
+        <div class="cardcontainer" id="songs"></div>
+
+        <!--popular artists-->
+        <h2>Popular artists</h2>
+
+        <!--artists inserted using js-->
+        <div class="artist-container" id="artists"></div>
+        </main>
+
+    </div>
+    <!--bottom banner-->
+    <div class="banner">
+        <div>
+            <h4>preview of spotify</h4>
+            <p>sign up to get premium features!</p>
+        </div>
+        <button>Sign up for free</button>
+    </div>
+
+     </div>
+<script src="script.js"></script>
+
+<div class="musicplayer">
+    <button id="playpause">▶</button>
+    <input type="range" id="progress" value="0">
+    <span id="currentTime">0:00</span>
+</div>
+
 </body>
 </html>
