@@ -90,6 +90,11 @@ artists.forEach(artist=> {
 })
 
 let currentsong= new Audio();
+
+const playerimg=document.getElementById("playerimg");
+const playertitle=document.getElementById("playertitle");
+const playerartist=document.getElementById("playerartist");
+
 let isplaying= false;
 /*play song when card clicked */
 const cards=document.querySelectorAll(".card");
@@ -99,9 +104,14 @@ cards.forEach((card,index)=>{
         currentsong.play();
 
         isplaying=true;
+        playerimg.src=songs[index].img;
+        playertitle.innerText=songs[index].title;
+        playerartist.innerText=songs[index].artist;
+
         document.getElementById("playpause").innerText="⏸";
     });
 });
+
 
 const playpausebtn=document.getElementById("playpause");
 playpausebtn.addEventListener("click", () => {
@@ -123,7 +133,8 @@ playpausebtn.addEventListener("click", () => {
 const progress=document.getElementById("progress");
 currentsong.addEventListener("timeupdate",()=>{
     if(currentsong.duration){
-        progress.value=(currentsong.currentTime/currentsong.duration)*100;
+        const percent=(currentsong.currentTime/currentsong.duration)*100;
+        progress.value=percent 
         
         progress.style.setProperty('--progress',percent +'%');
     }
@@ -134,7 +145,7 @@ progress.addEventListener("input", ()=>{
 });
 const currentTimeEl = document.getElementById("currentTime");
 
-currentSong.addEventListener("timeupdate", () => {
+currentsong.addEventListener("timeupdate", () => {
 
     let minutes = Math.floor(currentsong.currentTime / 60);
     let seconds = Math.floor(currentsong.currentTime % 60);
@@ -145,3 +156,19 @@ currentSong.addEventListener("timeupdate", () => {
 
 });
 });
+
+/* search bar*/
+const searchInput= document.querySelector(".search input");
+searchInput.addEventListener("input",()=>{
+    const value=searchInput.value.toLowerCase();
+    const cards=document.querySelectorAll(".card");
+
+    cards.forEach(card=> {
+        const title=card.querySelector("p").innerText.toLowerCase();
+        
+        if (title.includes(value))
+            card.style.display="block";
+        else
+            card.style.display="none";
+    })
+})

@@ -80,13 +80,35 @@
     </div>
 
      </div>
-<script src="script.js"></script>
 
 <div class="musicplayer">
-    <button id="playpause">▶</button>
-    <input type="range" id="progress" value="0">
-    <span id="currentTime">0:00</span>
-</div>
+    <div class="playerleft">
+        <img id="playerimg" src="" alt="cover" >
+        <div class="playerinfo">
+            <div id="playertitle">Song Title</div>
+            <div id="playerartist">Artist Name</div>
+        </div>
+        <i class="fa-regular fa-heart" id="likebtn"></i>
+    </div>
+    <div class="playercenter">
+        <i class="fa-solid fa-shuffle" id="shufflebtn"></i>
+        <i class="fa-solid fa-backward-step" id="prevbtn"></i>
 
+    <button id="playpause">▶</button>
+    <i class="fa-solid fa-forward-step" id="nextbtn"></i>
+    <i class="fa-solid fa-repeat" id="repeatbtn"></i>
+    </div>
+
+    <div class="playerright">
+        <span id="currentTime">0:00</span>
+        <input type="range" id="progress" value="0">
+        <span id="duration">0:00</span>
+        <i class="fa-solid fa-volume-high" id="volumeicon"></i>
+        <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+        <i class="fa-solid fa-bars" id="morebtn"></i>
+    </div>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>

@@ -87,7 +87,7 @@ html{
     width: 330px;
     background: black;
     padding: 20px 15px;
-    height: 100vh;
+    height: calc(100vh-80px);
     position: sticky;
     top:60px;
 }
@@ -272,3 +272,94 @@ h2{
     opacity: 0;
     transition: opacity 0.2s ease;
 }
+
+.musicplayer{
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color: #181818;
+    border-top: 1px solid #282828;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box
+}
+.playerleft{
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+#playerimg{
+    width: 60px;
+    height: 60px;
+
+    border-radius: 6px;
+    object-fit: cover;
+
+}
+#playertitle{
+    font-weight: bold;
+    font-size: 16px;
+}
+#playerartist{
+    color: #b3b3b3;
+    font-size: 13px;
+}
+#likebtn{
+    color: #1db954;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 23px;
+}
+
+.playercenter{
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    font-size: 25px;
+}
+.playercenter i{
+    cursor: pointer;
+    color: #b3b3b3;
+}
+.playercenter i:hover{
+    color:white;
+}
+#playpause{
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+    font-size: 25px;
+    align-items: center;
+}
+.playerright{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+#volume{
+    width: 90px;
+    height: 20px;
+}
+#progress{
+    flex: 1;
+    height: 4px;
+    appearance: none;
+    background: #535353;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+}
+#progress::-webkit-slider-runnable-track{
+    height: 4px;
+    background: linear-gradient(to right, #1db954 var(--progress), #535353 100%);
+    border-radius: 10px;}
