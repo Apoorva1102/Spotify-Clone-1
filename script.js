@@ -1,46 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+fetchSongs();
 
 /*song data*/
-const songs=[
-    {
-    title:"Run Down The City",
-    artist:"Reble, Shashwat Sachdeva, Asha Bhosle",
-    img:"dhurandhar.jpg",
-    file:"rundownthecity.mpeg"
-    },
-    {
-    title:"Balam Pichkari",
-    artist:"Pritam",
-    img:"balampichkari.jpg",
-    file: "balampichkari.mpeg"
-    },
-    {
-    title:"Blank Space",
-    artist:"Taylor Swift",
-    img:"blankspace.jpg",
-    file:"blankspace.mpeg"
-    },
-    {
-    title:"Vaari Jawan",
-    artist:"Jasmine Sandlas, Jyoti Nooran, Reble",
-    img:"dhurandhar2.jpg",
-    file:"vaarijawan.mpeg"
-    },
-    {
-    title:"Aari Aari",
-    artist:"Shashwat Sachdeva, Reble, Jasmine Sandlas",
-    img:"dhurandhar2.jpg",
-    file:"dhurandhar1.mpeg"
-    },
-    
-    {
-    title:"Bad Blood",
-    artist:"Taylor Swift",
-    img:"reputation.jpg",
-    file:"badblood.mpeg"
+async function fetchSongs(){
+    try{
+       const response = await fetch(
+            "https://itunes.apple.com/search?term=taylor&entity=song&limit=20"
+);
+        const data=await response.json();
+        console.log(data);
+        songs=data.results.map(song=> ({
+            title: song.trackName,
+            artist: song.artistName,
+            img: song.artworkUrl100.replace("100x100","600x600"),
+            file: song.previewUrl
+        })
+        );
+        renderSongs();
+        
     }
-];
+    catch(error){
+        console.error(error);
+    }
+}
+let songs=[];
+
 
 /*artist data*/
 const artists=[
@@ -63,19 +47,25 @@ const artists=[
 ];
 
 /*render songs */
-const songcontainer=document.getElementById("songs");
-songs.forEach(song=> {
-    songcontainer.innerHTML += `
-    <div class="card">
-    <img src="${song.img}">
-    <div class="playbtn">
-    <i class="fa-solid fa-play"></i>
-    </div>
-    <p>${song.title}</p>
-    <small>${song.artist}</small>
-    </div>
-    `;
-});
+
+
+function renderSongs(){
+    const songcontainer=document.getElementById("songs");
+    songcontainer.innerHTML="";
+    songs.forEach(song=>{
+        songcontainer.innerHTML+=`
+        <div class="card">
+        <img src="${song.img}">
+        <div class="playbtn">
+        <i class="fa-solid fa-play"></i>
+        </div>
+        <p>${song.title}</p>
+        <small>${song.artist}</small>
+        </div>
+         `;
+    });
+    attachSongListeners();
+}
 
 /*render artists */
 const artistcontainer=document.getElementById("artists");
@@ -97,20 +87,19 @@ const playerartist=document.getElementById("playerartist");
 
 let isplaying= false;
 /*play song when card clicked */
-const cards=document.querySelectorAll(".card");
-cards.forEach((card,index)=>{
-    card.addEventListener("click",()=>{
-        currentsong.src=songs[index].file;
-        currentsong.play();
-
-        isplaying=true;
-        playerimg.src=songs[index].img;
-        playertitle.innerText=songs[index].title;
-        playerartist.innerText=songs[index].artist;
-
-        document.getElementById("playpause").innerText="⏸";
+function attachSongListeners(){
+    const cards= document.querySelectorAll(".card");
+    cards.forEach((card,index)=>{
+        card.addEventListener("click",()=>{
+            currentsong.src=songs[index].file;
+            currentsong.play();
+            playerimg.src=songs[index].img;
+            playertitle.innerText=songs[index].title;
+            playerartist.innerText=songs[index].artist;
+            playpausebtn.innerText="⏸";
+        });
     });
-});
+}
 
 
 const playpausebtn=document.getElementById("playpause");
@@ -157,18 +146,40 @@ currentsong.addEventListener("timeupdate", () => {
 });
 });
 
-/* search bar*/
-const searchInput= document.querySelector(".search input");
-searchInput.addEventListener("input",()=>{
-    const value=searchInput.value.toLowerCase();
-    const cards=document.querySelectorAll(".card");
+/* Search Bar */
 
-    cards.forEach(card=> {
-        const title=card.querySelector("p").innerText.toLowerCase();
-        
-        if (title.includes(value))
-            card.style.display="block";
-        else
-            card.style.display="none";
-    })
-})
+const searchInput = document.querySelector(".search input");
+
+searchInput.addEventListener("keypress", async (e) => {
+
+    if (e.key === "Enter") {
+
+        try {
+
+            const query = searchInput.value;
+
+            const response = await fetch(
+             "https://itunes.apple.com/search?term=taylor&entity=song&limit=20"
+);
+
+            const data = await response.json();
+
+            songs = data.result.map(song => ({
+                title: song.trackName,
+                artist: song.artistName,
+                img: song.artworkUrl100,
+                file: song.previewUrl
+            }));
+
+            renderSongs();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+});
+
